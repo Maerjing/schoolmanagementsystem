@@ -1,11 +1,19 @@
 package com.wang.service.impl;
 
+import com.wang.mappers.TeacherMapper;
 import com.wang.pojo.Teacher;
 import com.wang.service.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TeacherServiceImpl implements TeacherService {
+    @Autowired
+    TeacherMapper teacherMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -22,9 +30,10 @@ public class TeacherServiceImpl implements TeacherService {
         return null;
     }
 
+    @Cacheable(value = "selectAll")
     @Override
     public List<Teacher> selectAll() {
-        return null;
+        return teacherMapper.selectAll();
     }
 
     @Override

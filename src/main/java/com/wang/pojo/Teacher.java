@@ -3,9 +3,11 @@ package com.wang.pojo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class Teacher {
+public class Teacher implements Serializable {
     private Integer id;
 
     private String name;
