@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.mappers.StudentCourceMapper">
+    <!--  <resultMap id="BaseResultMap" type="com.wang.pojo.StudentCource">-->
+    <!--    <result column="student_id" jdbcType="INTEGER" property="studentId" />-->
+    <!--    <result column="cource_id" jdbcType="INTEGER" property="courceId" />-->
+    <!--    <result column="score" jdbcType="DOUBLE" property="score" />-->
+    <!--  </resultMap>-->
+    <!--  <insert id="insert" parameterType="com.wang.pojo.StudentCource">-->
+    <!--    insert into student_cource (student_id, cource_id, score-->
+    <!--      )-->
+    <!--    values (#{studentId,jdbcType=INTEGER}, #{courceId,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE}-->
+    <!--      )-->
+    <!--  </insert>-->
+    <!--  <select id="selectAll" resultMap="BaseResultMap">-->
+    <!--    select student_id, cource_id, score-->
+    <!--    from student_cource-->
+    <!--  </select>-->
+    <resultMap id="StudentCourceMap" type="com.wang.pojo.StudentCource">
+        <id property="studentId" column="student_id"/>
+        <result property="score" column="score"/>
+        <collection property="cources" column="cource_id" ofType="com.wang.pojo.Cource">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <collection property="teachers" column="teacher_id" ofType="com.wang.pojo.Teacher">
+                <id property="id" column="id"/>
+                <result property="name" column="name"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <!--  List<StudentCource> selectAll();-->
+    <select id="selectAll" resultMap="StudentCourceMap">
+        select student_cource.student_id,
+               student_cource.cource_id,
+               student_cource.score,
+               cource.name
+        from student_cource,
+             cource
+        where student_cource.cource_id = cource.id
+    </select>
+</mapper>
