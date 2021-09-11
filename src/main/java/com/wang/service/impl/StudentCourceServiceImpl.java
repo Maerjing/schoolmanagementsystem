@@ -1,9 +1,11 @@
 package com.wang.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.wang.mappers.StudentCourceMapper;
+import com.wang.pojo.Cource;
 import com.wang.pojo.StudentCource;
 import com.wang.service.StudentCourceService;
 import org.apache.ibatis.session.SqlSession;
@@ -14,6 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -29,8 +32,10 @@ public class StudentCourceServiceImpl implements StudentCourceService {
     }
 
     @Override
-    public List<StudentCource> selectAll() {
+    @Cacheable("StudentC")
+    public String selectAll() {
         List<StudentCource> studentCources = studentCourceMapper.selectAll();
-        return studentCources;
+        String jsonString = JSON.toJSONString(studentCources);
+        return jsonString;
     }
 }

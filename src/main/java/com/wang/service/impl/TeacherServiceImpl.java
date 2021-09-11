@@ -33,7 +33,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Cacheable(value = "selectAll")
     @Override
     public List<Teacher> selectAll() {
-        return teacherMapper.selectAll();
+        List<Teacher> teachers = teacherMapper.selectAll();
+        return teachers;
     }
 
     @Override

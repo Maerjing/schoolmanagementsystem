@@ -9,5 +9,5 @@ public interface StudentCourceService {
     int insert(StudentCource record);
 
 
-    List<StudentCource> selectAll();
+    String selectAll();
 }

@@ -1,17 +1,15 @@
 package com.wang;
 
+import com.alibaba.fastjson.JSON;
+import com.wang.pojo.StudentCource;
 import com.wang.pojo.Teacher;
 import com.wang.service.StudentCourceService;
 import com.wang.service.impl.TeacherServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
 
@@ -24,19 +22,15 @@ class SchoolmanagementsystemApplicationTests {
     TeacherServiceImpl teacherService;
 
     @Test
-    @PerfTest(invocations = 10000, threads = 1000)
     void contextLoads() {
         List<Teacher> teachers = teacherService.selectAll();
         System.out.println(teachers);
     }
 
-    @Autowired
-    RedisTemplate redisTemplate;
-
     @Test
-    void test01() {
-        Teacher teacher = new Teacher(1, "zhu");
-        redisTemplate.opsForValue().set("teacher", teacher);
-        System.out.println(redisTemplate.opsForValue().get("teacher"));
+    void test01(){
+        String selectAll = studentCourceService.selectAll();
+        List<StudentCource> StudentCource = (List<StudentCource>)JSON.parse(selectAll);
+        System.out.println(StudentCource);
     }
 }
