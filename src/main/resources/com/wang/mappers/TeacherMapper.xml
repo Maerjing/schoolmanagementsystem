@@ -27,4 +27,8 @@
     select id, name
     from teacher
   </select>
+<!--  int selectByIdAndName(Map map);-->
+  <select id="selectByIdAndName" resultMap="com.wang.pojo.Teacher">
+    select teacher.id,teacher.name from teacher where id=#{id} And name=#{name}
+  </select>
 </mapper>

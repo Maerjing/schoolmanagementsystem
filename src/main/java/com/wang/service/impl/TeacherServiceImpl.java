@@ -8,7 +8,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -40,5 +42,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int updateByPrimaryKey(Teacher record) {
         return 0;
+    }
+
+    @Override
+    public Teacher selectByIdAndName(Map map) {
+        Teacher teacher = teacherMapper.selectByIdAndName(map);
+        return teacher;
     }
 }
