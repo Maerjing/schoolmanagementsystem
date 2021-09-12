@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -32,5 +33,13 @@ class SchoolmanagementsystemApplicationTests {
         String selectAll = studentCourceService.selectAll();
         List<StudentCource> StudentCource = (List<StudentCource>)JSON.parse(selectAll);
         System.out.println(StudentCource);
+    }
+    @Test
+    void test02(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id",4);
+        hashMap.put("name","123");
+        Teacher teacher = teacherService.selectByIdAndName(hashMap);
+        System.out.println(teacher);
     }
 }

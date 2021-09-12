@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,14 +33,18 @@ public class TeacherController {
     }
 
     @PostMapping("/toLogin")
-    @ResponseBody
     public String login(@RequestParam("id") int id,
                         @RequestParam("name") String name,
                         HttpSession httpSession){
-        Teacher teacher = new Teacher(id, name);
-        log.info("id=====",id);
-        httpSession.setAttribute("teacher",teacher);
-        return teacher.toString();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id",id);
+        hashMap.put("name",name);
+        Teacher teacher = teacherService.selectByIdAndName(hashMap);
+        if (teacher!=null){
+            httpSession.setAttribute("teacher",teacher);
+            return "index";
+        }
+        return "login";
     }
 
     @GetMapping("/selectTeacher")
